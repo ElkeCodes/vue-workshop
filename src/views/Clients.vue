@@ -2,6 +2,24 @@
   <div class="pl-6 pr-6 divide-y divide-gray-400">
     <div class="relative">
       <h1 class="pt-6 pb-6 text-xl">Clients</h1>
+      <div class="absolute top-0 right-0">
+        <router-link
+          :to="{ name: 'createClient' }"
+          class="
+            mt-5
+            bg-primary-500
+            hover:bg-primary-700
+            text-white
+            font-bold
+            py-2
+            px-4
+            rounded
+            block
+          "
+        >
+          Add
+        </router-link>
+      </div>
     </div>
     <div class="pt-6">
       <ClientsTable :clients="clients"></ClientsTable>
