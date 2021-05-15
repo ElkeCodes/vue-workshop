@@ -5,7 +5,7 @@
       <div class="h-full float-left max-w-lg">
         <SideNav :show="isMenuOpen"></SideNav>
       </div>
-      <div class="flex-1 p-2"></div>
+      <div class="flex-1 p-2"><router-view /></div>
     </div>
   </div>
 </template>

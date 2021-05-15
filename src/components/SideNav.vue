@@ -6,7 +6,7 @@
     >
       <ul>
         <li v-for="item in items">
-          {{ item }}
+          <router-link :to="item.to">{{ item.label }}</router-link>
         </li>
       </ul>
     </nav>
@@ -23,7 +23,7 @@ export default defineComponent({
   },
   data() {
     return {
-      items: ["Clients", "Products"],
+      items: [{ label: "Clients", to: { name: "clients" } }],
     };
   },
 });
