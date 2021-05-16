@@ -25,6 +25,11 @@
         type="text"
         v-model="value"
       />
+      <div class="pt-2" v-if="errors.length > 0">
+        <p class="text-red-500 text-xs italic" v-for="error in errors">
+          {{ error }}
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -40,6 +45,10 @@ export default defineComponent({
     },
     label: {
       type: String,
+    },
+    errors: {
+      type: Array as PropType<Array<string>>,
+      default: new Array(),
     },
   },
   emits: ["update:modelValue"],

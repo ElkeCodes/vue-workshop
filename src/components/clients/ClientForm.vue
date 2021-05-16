@@ -1,7 +1,15 @@
 <template>
   <form class="w-full" @submit.prevent>
-    <form-field v-model="client.firstName" label="First name" />
-    <form-field v-model="client.lastName" label="Last name" />
+    <form-field
+      v-model="client.firstName"
+      label="First name"
+      :errors="firstNameErrors"
+    />
+    <form-field
+      v-model="client.lastName"
+      label="Last name"
+      :errors="lastNameErrors"
+    />
     <form-field v-model="client.email" label="E-mail" />
     <form-field v-model="client.birthday" label="Birthday" />
     <form-field v-model="client.city" label="City" />
@@ -11,16 +19,13 @@
       <div class="md:w-3/4 flex">
         <div>
           <button
+            :disabled="!isValid"
             type="submit"
-            class="
-              bg-primary-500
-              text-white
-              font-bold
-              py-2
-              px-4
-              rounded
-              hover:bg-primary-700
-            "
+            class="bg-primary-500 text-white font-bold py-2 px-4 rounded"
+            :class="{
+              'opacity-50 cursor-not-allowed': !isValid,
+              'hover:bg-primary-700': isValid,
+            }"
             @click="onSubmit"
           >
             Save
@@ -65,6 +70,24 @@ export default defineComponent({
     },
     onCancel() {
       this.$emit("cancel");
+    },
+    validateNotEmpty(fieldName: string, data: string): string[] {
+      return !data || data.trim().length === 0
+        ? [`${fieldName} is required`]
+        : [];
+    },
+  },
+  computed: {
+    firstNameErrors(): string[] {
+      return this.validateNotEmpty("First name", this.client.firstName);
+    },
+    lastNameErrors(): string[] {
+      return this.validateNotEmpty("Last name", this.client.lastName);
+    },
+    isValid() {
+      return (
+        this.firstNameErrors.length === 0 && this.lastNameErrors.length === 0
+      );
     },
   },
   components: {
