@@ -1,4 +1,9 @@
-import { createRouter, createWebHistory, RouteLocationNormalized, RouteRecordRaw } from "vue-router";
+import {
+  createRouter,
+  createWebHistory,
+  RouteLocationNormalized,
+  RouteRecordRaw,
+} from "vue-router";
 import Clients from "./views/Clients.vue";
 import CreateClient from "./views/CreateClient.vue";
 import EditClient from "./views/EditClient.vue";
@@ -10,8 +15,13 @@ const routes: RouteRecordRaw[] = [
   {
     path: "/products/:id/edit",
     name: "editProduct",
-    component: EditProduct,
-    props: (route: RouteLocationNormalized) => ({ id: route.params.id }),
+    components: {
+      modal: EditProduct,
+      default: Products,
+    },
+    props: {
+      modal: (route: RouteLocationNormalized) => ({ id: route.params.id }),
+    },
   },
   {
     path: "/products/create",
