@@ -15,7 +15,9 @@
         </td>
         <td class="border px-4 py-2">
           <action-menu>
-            <button type="button">Edit</button>
+            <button type="button" @click="$emit('edit:client', client.id)">
+              Edit
+            </button>
             <button type="button">Delete</button>
           </action-menu>
         </td>
@@ -31,6 +33,7 @@ import ActionMenu from "../ActionMenu.vue";
 
 export default defineComponent({
   name: "ClientsTable",
+  emits: ["edit:client"],
   props: {
     clients: Array as PropType<Client[]>,
   },

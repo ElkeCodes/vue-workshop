@@ -22,7 +22,7 @@
       </div>
     </div>
     <div class="pt-6">
-      <ClientsTable :clients="clients"></ClientsTable>
+      <ClientsTable :clients="clients" @edit:client="editClient"></ClientsTable>
     </div>
   </div>
 </template>
@@ -45,6 +45,12 @@ export default defineComponent({
       fetch("https://base-app-backend.herokuapp.com/clients")
         .then((response) => response.json())
         .then((clients) => (this.clients = clients));
+    },
+    editClient(id) {
+      this.$router.push({
+        name: "editClient",
+        params: { id },
+      });
     },
   },
   created() {
