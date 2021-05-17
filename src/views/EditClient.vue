@@ -16,6 +16,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { mapState } from "vuex";
 import ClientForm from "../components/clients/ClientForm.vue";
 
 export default defineComponent({
@@ -29,38 +30,20 @@ export default defineComponent({
       required: true,
     },
   },
-  data() {
-    return {
-      client: {
-        firstName: "",
-        lastName: "",
-        email: "",
-        birthday: "",
-        city: "",
-        zip: "",
-      } as Client,
-    };
+  computed: {
+    ...mapState("clients", ["client"]),
   },
   created() {
-    fetch(`https://base-app-backend.herokuapp.com/clients/${this.$props.id}`)
-      .then((response) => response.json())
-      .then((client) => (this.client = client));
+    this.$store.dispatch("clients/loadClient", this.$props.id);
   },
   methods: {
     returnToClients() {
       this.$router.push({ name: "clients" });
     },
     editClient(client: Client): Promise<Response> {
-      return fetch(
-        `https://base-app-backend.herokuapp.com/clients/${this.$props.id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(client),
-        }
-      ).then(this.returnToClients);
+      this.$store
+        .dispatch("clients/editClient", client)
+        .then(this.returnToClients);
     },
   },
 });

@@ -6,8 +6,15 @@
         <router-link
           :to="{ name: 'createClient' }"
           class="
-            mt-5 bg-primary-500 hover:bg-primary-700 text-white font-bold
-            py-2 px-4 rounded block
+            mt-5
+            bg-primary-500
+            hover:bg-primary-700
+            text-white
+            font-bold
+            py-2
+            px-4
+            rounded
+            block
           "
           v-if="isUnlocked"
         >
@@ -28,26 +35,17 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import ClientsTable from "../components/clients/ClientsTable.vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapState } from "vuex";
 
 export default defineComponent({
   components: {
     ClientsTable,
   },
-  data() {
-    return {
-      clients: [],
-    };
-  },
   computed: {
     ...mapGetters(["isUnlocked"]),
+    ...mapState("clients", ["clients"]),
   },
   methods: {
-    loadClients() {
-      fetch("https://base-app-backend.herokuapp.com/clients")
-        .then((response) => response.json())
-        .then((clients) => (this.clients = clients));
-    },
     editClient(id) {
       this.$router.push({
         name: "editClient",
@@ -56,14 +54,12 @@ export default defineComponent({
     },
     deleteClient(id) {
       if (window.confirm("Are you sure?")) {
-        fetch(`https://base-app-backend.herokuapp.com/clients/${id}`, {
-          method: "DELETE",
-        }).then(() => this.loadClients());
+        this.$store.dispatch("clients/deleteClient", id);
       }
     },
   },
   created() {
-    this.loadClients();
+    this.$store.dispatch("clients/loadClients");
   },
 });
 </script>

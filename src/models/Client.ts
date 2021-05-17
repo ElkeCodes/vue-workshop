@@ -7,3 +7,12 @@ export interface Client {
   city: string;
   zip: string;
 }
+
+export const defaultClient: Client = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  birthday: "",
+  city: "",
+  zip: "",
+};

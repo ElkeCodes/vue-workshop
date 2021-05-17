@@ -1,4 +1,5 @@
 import { createLogger, createStore } from "vuex";
+import { clientsModule } from "./clients";
 
 export interface GlobalState {
   isReadOnly: boolean;
@@ -25,6 +26,9 @@ export const store = createStore({
     toggleLock({ commit }) {
       commit("toggleLock");
     },
+  },
+  modules: {
+    clients: clientsModule,
   },
   plugins: import.meta.env.NODE_ENV !== "production" ? [createLogger()] : [],
 });

@@ -16,6 +16,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import ClientForm from "../components/clients/ClientForm.vue";
+import { defaultClient } from "../models/Client";
 
 export default defineComponent({
   name: "CreateClient",
@@ -24,14 +25,7 @@ export default defineComponent({
   },
   data() {
     return {
-      client: {
-        firstName: "",
-        lastName: "",
-        email: "",
-        birthday: "",
-        city: "",
-        zip: "",
-      } as Client,
+      client: { ...defaultClient },
     };
   },
   methods: {
@@ -39,13 +33,9 @@ export default defineComponent({
       this.$router.push({ name: "clients" });
     },
     saveClient(client: Client) {
-      fetch("https://base-app-backend.herokuapp.com/clients", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(client),
-      }).then(this.returnToClients);
+      this.$store
+        .dispatch("clients/createClient", client)
+        .then(this.returnToClients);
     },
   },
 });
