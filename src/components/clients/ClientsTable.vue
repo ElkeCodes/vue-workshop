@@ -14,7 +14,10 @@
           {{ client.firstName }} {{ client.lastName }}
         </td>
         <td class="border px-4 py-2">
-          Actions
+          <action-menu>
+            <button type="button">Edit</button>
+            <button type="button">Delete</button>
+          </action-menu>
         </td>
       </tr>
     </tbody>
@@ -24,11 +27,15 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { Client } from "../../models/Client";
+import ActionMenu from "../ActionMenu.vue";
 
 export default defineComponent({
   name: "ClientsTable",
   props: {
     clients: Array as PropType<Client[]>,
+  },
+  components: {
+    ActionMenu,
   },
 });
 </script>
