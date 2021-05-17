@@ -6,16 +6,10 @@
         <router-link
           :to="{ name: 'createClient' }"
           class="
-            mt-5
-            bg-primary-500
-            hover:bg-primary-700
-            text-white
-            font-bold
-            py-2
-            px-4
-            rounded
-            block
+            mt-5 bg-primary-500 hover:bg-primary-700 text-white font-bold
+            py-2 px-4 rounded block
           "
+          v-if="isUnlocked"
         >
           Add
         </router-link>
@@ -34,6 +28,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import ClientsTable from "../components/clients/ClientsTable.vue";
+import { mapGetters } from "vuex";
 
 export default defineComponent({
   components: {
@@ -43,6 +38,9 @@ export default defineComponent({
     return {
       clients: [],
     };
+  },
+  computed: {
+    ...mapGetters(["isUnlocked"]),
   },
   methods: {
     loadClients() {

@@ -1,6 +1,11 @@
 <template>
   <div v-click-outside="closeMenu">
-    <button type="button" @click="isMenuOpened = !isMenuOpened">
+    <button
+      type="button"
+      @click="isMenuOpened = !isMenuOpened"
+      :disabled="isLocked"
+      :class="{ 'cursor-not-allowed': isLocked }"
+    >
       Actions
       <span aria-hidden="true">▾</span>
     </button>
@@ -15,6 +20,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
+import { mapGetters } from "vuex";
 import { clickOutside } from "../directives/click-outside";
 
 export default defineComponent({
@@ -30,6 +36,9 @@ export default defineComponent({
     closeMenu() {
       this.isMenuOpened = false;
     },
+  },
+  computed: {
+    ...mapGetters(["isLocked"]),
   },
 });
 </script>
