@@ -7,6 +7,7 @@
     <div
       v-if="isMenuOpened"
       class="absolute flex flex-col items-start border p-2 gap-2 bg-white"
+      @click="closeMenu"
     >
       <slot><button @click="closeMenu">Close</button></slot>
     </div>

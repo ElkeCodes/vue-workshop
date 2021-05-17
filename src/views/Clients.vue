@@ -22,7 +22,11 @@
       </div>
     </div>
     <div class="pt-6">
-      <ClientsTable :clients="clients" @edit:client="editClient"></ClientsTable>
+      <ClientsTable
+        :clients="clients"
+        @edit:client="editClient"
+        @delete:client="deleteClient"
+      ></ClientsTable>
     </div>
   </div>
 </template>
@@ -51,6 +55,13 @@ export default defineComponent({
         name: "editClient",
         params: { id },
       });
+    },
+    deleteClient(id) {
+      if (window.confirm("Are you sure?")) {
+        fetch(`https://base-app-backend.herokuapp.com/clients/${id}`, {
+          method: "DELETE",
+        }).then(() => this.loadClients());
+      }
     },
   },
   created() {

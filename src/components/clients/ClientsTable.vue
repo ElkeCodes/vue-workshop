@@ -18,7 +18,9 @@
             <button type="button" @click="$emit('edit:client', client.id)">
               Edit
             </button>
-            <button type="button">Delete</button>
+            <button type="button" @click="$emit('delete:client', client.id)">
+              Delete
+            </button>
           </action-menu>
         </td>
       </tr>
