@@ -23,7 +23,10 @@ export default defineComponent({
   },
   data() {
     return {
-      items: [{ label: "Clients", to: { name: "clients" } }],
+      items: [
+        { label: "Clients", to: { name: "clients" } },
+        { label: "Products", to: { name: "products" } },
+      ],
     };
   },
 });

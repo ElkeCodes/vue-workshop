@@ -1,5 +1,6 @@
 import { createLogger, createStore } from "vuex";
 import { clientsModule } from "./clients";
+import { productsModule } from "./products";
 
 export interface GlobalState {
   isReadOnly: boolean;
@@ -29,6 +30,7 @@ export const store = createStore({
   },
   modules: {
     clients: clientsModule,
+    products: productsModule,
   },
   plugins: import.meta.env.NODE_ENV !== "production" ? [createLogger()] : [],
 });

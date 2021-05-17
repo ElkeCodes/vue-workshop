@@ -2,8 +2,27 @@ import { createRouter, createWebHistory, RouteLocationNormalized, RouteRecordRaw
 import Clients from "./views/Clients.vue";
 import CreateClient from "./views/CreateClient.vue";
 import EditClient from "./views/EditClient.vue";
+import Products from "./views/Products.vue";
+import CreateProduct from "./views/CreateProduct.vue";
+import EditProduct from "./views/EditProduct.vue";
 
 const routes: RouteRecordRaw[] = [
+  {
+    path: "/products/:id/edit",
+    name: "editProduct",
+    component: EditProduct,
+    props: (route: RouteLocationNormalized) => ({ id: route.params.id }),
+  },
+  {
+    path: "/products/create",
+    name: "createProduct",
+    component: CreateProduct,
+  },
+  {
+    path: "/products",
+    name: "products",
+    component: Products,
+  },
   {
     path: "/clients/:id/edit",
     name: "editClient",
